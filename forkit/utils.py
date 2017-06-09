@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.fields import related
 
+
 class DeferredCommit(object):
     """Differentiates a non-direct related object that should be deferred
     during the commit phase.
@@ -55,6 +56,7 @@ class Memo(object):
         key = self._key(reference)
         return self._memo.get(key)
 
+
 def _get_field_by_accessor(instance, accessor):
     """Extends the model ``Options.get_field_by_name`` to look up reverse
     relationships by their accessor name. This gets memod on the first
@@ -64,7 +66,10 @@ def _get_field_by_accessor(instance, accessor):
     not been set for reverse relationships.
     """
     try:
-        field, model, direct, m2m = instance._meta.get_field_by_name(accessor)
+        field = instance._meta.get_field(accessor)
+        model = field.model
+        direct = not field.auto_created or field.concrete
+        m2m = field.many_to_many
 
         if isinstance(field, related.ForeignObjectRel):
             field = field.field
@@ -74,11 +79,18 @@ def _get_field_by_accessor(instance, accessor):
         if not hasattr(instance._meta, 'related_objects_by_accessor'):
             memo = {}
 
+            related_objects = [
+                f for f in instance._meta.get_fields()
+                if (f.one_to_many or f.one_to_one)
+                and f.auto_created and not f.concrete
+            ]
+            related_many_to_many_objects = [
+                f for f in instance._meta.get_fields(include_hidden=True)
+                if f.many_to_many and f.auto_created
+            ]
+
             # reverse foreign key and many-to-many rels
-            related_objects = (
-                instance._meta.get_all_related_objects() +
-                instance._meta.get_all_related_many_to_many_objects()
-            )
+            related_objects = related_objects + related_many_to_many_objects
 
             for rel in iter(related_objects):
                 memo[rel.get_accessor_name()] = rel
@@ -101,6 +113,7 @@ def _get_field_by_accessor(instance, accessor):
 
     # ignoring ``model`` for now.. no use for it
     return field, direct, m2m
+
 
 def _get_field_value(instance, accessor):
     """Simple helper that returns the model's data value and catches
@@ -140,6 +153,7 @@ def _get_field_value(instance, accessor):
     # ignoring ``model`` for now.. no use for it
     return value, field, direct, m2m
 
+
 def _default_model_fields(instance, exclude=('pk',), deep=False):
     "Aggregates the default set of fields for creating an object fork."
     if not exclude:
@@ -160,4 +174,3 @@ def _default_model_fields(instance, exclude=('pk',), deep=False):
         fields += [r.get_accessor_name() for r in instance._meta.get_all_related_objects()]
 
     return set(fields) - set(exclude)
-
