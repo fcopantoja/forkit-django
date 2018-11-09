@@ -189,6 +189,9 @@ To run the tests locally:
 If you want to change the database from Postgres to something else, you can
 define `DATABASE_URL` as allowed by [django-environ][django-environ].
 
+Once the tests have run, a detailed breakdown of the test coverage should be
+available in the `htmlcov/` folder.
+
 
 [django-environ]: https://django-environ.readthedocs.io
 [tox]: https://tox.readthedocs.io
