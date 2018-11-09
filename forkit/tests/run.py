@@ -5,6 +5,7 @@ import sys
 import environ
 from django import setup
 from django.conf import settings
+from django.test.runner import DiscoverRunner
 
 env = environ.Env()
 
@@ -15,10 +16,9 @@ settings.configure(
     INSTALLED_APPS=('forkit', 'forkit.tests'),
 )
 
+
 setup()
 
-# This must be after settings.configure.
-from django.test.runner import DiscoverRunner
 
 test_runner = DiscoverRunner(verbosity=2)
 
