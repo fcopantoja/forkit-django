@@ -90,4 +90,3 @@ class UtilsTestCase(TestCase):
 
         self.assertEqual(utils._default_model_fields(tag, deep=True),
             set(['name', 'post_set']))
-
