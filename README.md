@@ -171,3 +171,24 @@ forkit.signals.post_diff
 - ``reference`` - the reference object the instance is being diffed against
 - ``instance`` - the object being diffed with
 - ``diff`` - the diff between the ``reference`` and ``instance``
+
+Contributing
+============
+
+To run the tests locally:
+
+1. Clone the project
+1. Create a test database:
+
+    psql -c "CREATE DATABASE forkit;"
+
+1. Create a virtual environment. (Optional, but recommended.)
+1. Install [tox][tox].
+1. Run `tox`.
+
+If you want to change the database from Postgres to something else, you can
+define `DATABASE_URL` as allowed by [django-environ][django-environ].
+
+
+[django-environ]: https://django-environ.readthedocs.io
+[tox]: https://tox.readthedocs.io
