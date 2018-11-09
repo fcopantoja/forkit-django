@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 """From http://stackoverflow.com/a/12260597/400691."""
+import argparse
 import sys
 
 import environ
@@ -19,10 +20,18 @@ settings.configure(
 
 setup()
 
+parser = argparse.ArgumentParser()
+parser.add_argument('tests', type=unicode, nargs='*', default=[])
+parser.add_argument('-v', '--verbosity', type=int, default=1)
+parser.add_argument('--failfast', action='store_true')
+parser.add_argument('--reverse', action='store_true')
 
-test_runner = DiscoverRunner(verbosity=2)
+arg_dict = vars(parser.parse_args())
+tests_to_run = arg_dict.pop('tests')
+
+test_runner = DiscoverRunner(**arg_dict)
+failures = test_runner.run_tests(tests_to_run)
 
 
-failures = test_runner.run_tests([])
 if failures:
     sys.exit(1)
