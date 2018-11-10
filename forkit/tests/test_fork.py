@@ -24,7 +24,7 @@ class ForkModelObjectTestCase(TestCase):
         fork2 = self.author.fork(commit=False)
 
         self.assertEqual(fork2.pk, None)
-        self.assertEqual(fork2._commits.related.keys(), ['posts'])
+        self.assertEqual(list(fork2._commits.related.keys()), ['posts'])
 
         fork2.commit()
         self.assertTrue(fork2.pk > fork.pk)
