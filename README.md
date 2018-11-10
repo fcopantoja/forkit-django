@@ -189,9 +189,15 @@ To run the tests locally:
 If you want to change the database from Postgres to something else, you can
 define `DATABASE_URL` as allowed by [django-environ][django-environ].
 
+When [using tox, you can pass arguments to the test runner][tox-posargs] like
+so:
+
+    tox -- --reverse --verbosity=1 forkit.tests.test_utils
+
 Once the tests have run, a detailed breakdown of the test coverage should be
 available in the `htmlcov/` folder.
 
 
 [django-environ]: https://django-environ.readthedocs.io
 [tox]: https://tox.readthedocs.io
+[tox-posargs]: https://tox.readthedocs.io/en/latest/config.html#substitutions-for-positional-arguments-in-commands
