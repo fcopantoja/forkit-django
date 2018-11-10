@@ -7,6 +7,7 @@ import environ
 from django import setup
 from django.conf import settings
 from django.test.runner import DiscoverRunner
+from django.utils import six
 
 env = environ.Env()
 
@@ -21,7 +22,7 @@ settings.configure(
 setup()
 
 parser = argparse.ArgumentParser()
-parser.add_argument('tests', type=unicode, nargs='*', default=[])
+parser.add_argument('tests', type=six.text_type, nargs='*', default=[])
 parser.add_argument('-v', '--verbosity', type=int, default=1)
 parser.add_argument('--failfast', action='store_true')
 parser.add_argument('--reverse', action='store_true')
