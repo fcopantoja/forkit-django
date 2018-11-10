@@ -165,12 +165,23 @@ def _default_model_fields(instance, exclude=('pk',), deep=False):
             exclude.remove('pk')
             exclude.append(instance._meta.pk.name)
 
+    related_many_to_many = [
+        field.get_accessor_name()
+        for field in instance._meta.get_fields(include_hidden=True)
+        if field.many_to_many and field.auto_created
+    ]
     fields = (
         [f.name for f in instance._meta.fields + instance._meta.many_to_many] +
-        [r.get_accessor_name() for r in instance._meta.get_all_related_many_to_many_objects()]
+        related_many_to_many
     )
 
     if deep:
-        fields += [r.get_accessor_name() for r in instance._meta.get_all_related_objects()]
+        fields += [
+            field.get_accessor_name()
+            for field in instance._meta.get_fields()
+            if (field.one_to_many or field.one_to_one)
+            and field.auto_created
+            and not field.concrete
+        ]
 
     return set(fields) - set(exclude)
