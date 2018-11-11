@@ -25,7 +25,7 @@ class Author(ForkableModel):
 @python_2_unicode_compatible
 class Blog(ForkableModel):
     name = models.CharField(max_length=50)
-    author = models.OneToOneField(Author)
+    author = models.OneToOneField(Author, on_delete=models.CASCADE)
 
     def __str__(self):
         return u'{0}'.format(self.name)
@@ -35,7 +35,7 @@ class Blog(ForkableModel):
 class Post(ForkableModel):
     title = models.CharField(max_length=50)
     # intentionally left off the related_name attr
-    blog = models.ForeignKey(Blog)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
     authors = models.ManyToManyField(Author, related_name='posts')
     # intentionally left off the related_name attr
     tags = models.ManyToManyField(Tag)
@@ -47,7 +47,7 @@ class Post(ForkableModel):
 @python_2_unicode_compatible
 class A(ForkableModel):
     title = models.CharField(max_length=50)
-    d = models.ForeignKey('D', null=True)
+    d = models.ForeignKey('D', null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return u'{0}'.format(self.title)
@@ -64,8 +64,8 @@ class B(ForkableModel):
 @python_2_unicode_compatible
 class C(ForkableModel):
     title = models.CharField(max_length=50)
-    a = models.ForeignKey(A, null=True)
-    b = models.ForeignKey(B, null=True)
+    a = models.ForeignKey(A, null=True, on_delete=models.CASCADE)
+    b = models.ForeignKey(B, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return u'{0}'.format(self.title)
