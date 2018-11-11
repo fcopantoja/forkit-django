@@ -34,7 +34,10 @@ def _commit_related(instance, memo, stack, **kwargs):
             elif isinstance(value, models.Model):
                 _memoize_commit(value, memo=memo, **kwargs)
 
-            setattr(instance, accessor, value)
+            if hasattr(getattr(instance, accessor), 'set'):
+                getattr(instance, accessor).set(value)
+            else:
+                setattr(instance, accessor, value)
 
 def _memoize_commit(instance, **kwargs):
     if not hasattr(instance, '_commits'):
