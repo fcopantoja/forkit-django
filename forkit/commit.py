@@ -29,7 +29,8 @@ def _commit_related(instance, memo, stack, **kwargs):
                 stack.append(value)
         else:
             if type(value) is list:
-                map(lambda rel: _memoize_commit(rel, memo=memo, **kwargs), value)
+                for rel in value:
+                    _memoize_commit(rel, memo=memo, **kwargs)
             elif isinstance(value, models.Model):
                 _memoize_commit(value, memo=memo, **kwargs)
 
