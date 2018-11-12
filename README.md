@@ -1,8 +1,11 @@
 Overview
 ========
-Django-Forkit is composed of a set of utility functions for _forking_,
-_resetting_, and _diffing_ model objects. Below are a list of the current
-utility functions:
+Forkit-Django is composed of a set of utility functions for _forking_,
+_resetting_, and _diffing_ model objects.
+
+Note: This project is a fork of Django-Forkit, which is now unmaintained.
+
+Below are a list of the current utility functions:
 
 forkit.tools.fork
 -----------------

@@ -7,9 +7,9 @@ version = __import__(BASE_PACKAGE).get_version()
 
 setup(
     version = version,
-    name = 'django-forkit',
-    author = 'Byron Ruth',
-    author_email = 'b@devel.io',
+    name='forkit-django',
+    author='Virtualstock',
+    author_email='dev.admin@virtualstock.com',
     description = 'Utility functions for forking, resetting ' \
         'and diffing model objects',
     license = 'BSD',
