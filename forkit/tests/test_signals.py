@@ -26,7 +26,7 @@ class SignalsTestCase(TestCase):
         fork = self.author.fork()
         self.assertEqual(self.author.diff(fork), {
             'last_name': ''
-        });
+        })
 
         signals.pre_fork.disconnect(author_config, sender=Author)
 
