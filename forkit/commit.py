@@ -34,10 +34,13 @@ def _commit_related(instance, memo, stack, **kwargs):
             elif isinstance(value, models.Model):
                 _memoize_commit(value, memo=memo, **kwargs)
 
-            if hasattr(getattr(instance, accessor), 'set'):
-                getattr(instance, accessor).set(value)
-            else:
+            relation = getattr(instance, accessor)
+            try:
+                m2m_set = relation.set
+            except AttributeError:
                 setattr(instance, accessor, value)
+            else:
+                m2m_set(value)
 
 def _memoize_commit(instance, **kwargs):
     if not hasattr(instance, '_commits'):
