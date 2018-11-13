@@ -18,7 +18,7 @@ class ForkModelObjectTestCase(TestCase):
 
         fork = self.author.fork()
 
-        self.assertTrue(fork.pk > self.author.pk)
+        self.assertGreater(fork.pk, self.author.pk)
         self.assertEqual(self.author.posts.through.objects.count(), 3)
 
         fork2 = self.author.fork(commit=False)
@@ -27,14 +27,14 @@ class ForkModelObjectTestCase(TestCase):
         self.assertEqual(list(fork2._commits.related.keys()), ['posts'])
 
         fork2.commit()
-        self.assertTrue(fork2.pk > fork.pk)
+        self.assertGreater(fork2.pk, fork.pk)
         self.assertEqual(self.author.posts.through.objects.count(), 4)
         self.assertEqual(fork2._commits.related, {})
 
         # Post
 
         fork = self.post.fork()
-        self.assertTrue(fork.pk > self.post.pk)
+        self.assertGreater(fork.pk, self.post.pk)
         # 2 self.posts X 4 authors
         self.assertEqual(self.post.authors.through.objects.count(), 8)
         self.assertEqual(self.post.tags.through.objects.count(), 6)
@@ -61,7 +61,7 @@ class ForkModelObjectTestCase(TestCase):
         fork.author = fork_author
         fork.commit()
 
-        self.assertTrue(fork.pk > self.blog.pk)
+        self.assertGreater(fork.pk, self.blog.pk)
 
         # test fork when one-to-one is not yet
         blog = Blog()
@@ -71,7 +71,7 @@ class ForkModelObjectTestCase(TestCase):
         # Tag
 
         fork = self.tag.fork()
-        self.assertTrue(fork.pk > self.tag.pk)
+        self.assertGreater(fork.pk, self.tag.pk)
         # 3 posts X 4 tags
         self.assertEqual(fork.post_set.through.objects.count(), 12)
 
@@ -80,7 +80,7 @@ class ForkModelObjectTestCase(TestCase):
 
         fork = self.author.fork(deep=True)
 
-        self.assertTrue(fork.pk > self.author.pk)
+        self.assertGreater(fork.pk, self.author.pk)
 
         # new counts
         self.assertEqual(Author.objects.count(), 4)
@@ -98,7 +98,7 @@ class ForkModelObjectTestCase(TestCase):
         # Post
 
         fork = self.post.fork(deep=True)
-        self.assertTrue(fork.pk > self.post.pk)
+        self.assertGreater(fork.pk, self.post.pk)
 
         # new counts
         self.assertEqual(Author.objects.count(), 6)
@@ -113,11 +113,11 @@ class ForkModelObjectTestCase(TestCase):
         # Blog
 
         fork = self.blog.fork(deep=True)
-        self.assertTrue(fork.pk > self.blog.pk)
+        self.assertGreater(fork.pk, self.blog.pk)
 
         # Tag
 
         fork = self.tag.fork(deep=True)
-        self.assertTrue(fork.pk > self.tag.pk)
+        self.assertGreater(fork.pk, self.tag.pk)
         # 3 posts X 4 tags
         self.assertEqual(fork.post_set.through.objects.count(), 15)
