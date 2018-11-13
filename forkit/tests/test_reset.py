@@ -5,7 +5,7 @@ __all__ = ('ResetModelObjectTestCase',)
 
 class ResetModelObjectTestCase(TestCase):
     def test_shallow_reset(self):
-        d1 = D(title='d1')
+        d1 = D.objects.create(title='d1')
         a1 = A(title='a1', d=d1)
         a1.save()
         b1 = B(title='b1')
@@ -42,7 +42,7 @@ class ResetModelObjectTestCase(TestCase):
 
 
     def test_deep_reset(self):
-        d1 = D(title='d1')
+        d1 = D.objects.create(title='d1')
         a1 = A(title='a1', d=d1)
         a1.save()
         b1 = B(title='b1')

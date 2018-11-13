@@ -171,3 +171,33 @@ forkit.signals.post_diff
 - ``reference`` - the reference object the instance is being diffed against
 - ``instance`` - the object being diffed with
 - ``diff`` - the diff between the ``reference`` and ``instance``
+
+Contributing
+============
+
+To run the tests locally:
+
+1. Clone the project
+1. Create a test database:
+
+    psql -c "CREATE DATABASE forkit;"
+
+1. Create a virtual environment. (Optional, but recommended.)
+1. Install [tox][tox].
+1. Run `tox`.
+
+If you want to change the database from Postgres to something else, you can
+define `DATABASE_URL` as allowed by [django-environ][django-environ].
+
+When [using tox, you can pass arguments to the test runner][tox-posargs] like
+so:
+
+    tox -- --reverse --verbosity=1 forkit.tests.test_utils
+
+Once the tests have run, a detailed breakdown of the test coverage should be
+available in the `htmlcov/` folder.
+
+
+[django-environ]: https://django-environ.readthedocs.io
+[tox]: https://tox.readthedocs.io
+[tox-posargs]: https://tox.readthedocs.io/en/latest/config.html#substitutions-for-positional-arguments-in-commands

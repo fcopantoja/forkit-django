@@ -26,9 +26,9 @@ class SignalsTestCase(TestCase):
         fork = self.author.fork()
         self.assertEqual(self.author.diff(fork), {
             'last_name': ''
-        });
+        })
 
-        signals.pre_fork.disconnect(author_config)
+        signals.pre_fork.disconnect(author_config, sender=Author)
 
     def test_deep_signal(self):
         # before signal is connected.. complete deep fork
@@ -52,5 +52,4 @@ class SignalsTestCase(TestCase):
         # odd usage of _get_field_value, but it works..
         self.assertEqual(blog0, None)
 
-        signals.pre_fork.disconnect(post_config)
-
+        signals.pre_fork.disconnect(post_config, sender=Post)
