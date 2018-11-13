@@ -26,6 +26,7 @@ parser.add_argument('tests', type=six.text_type, nargs='*', default=[])
 parser.add_argument('-v', '--verbosity', type=int, default=1)
 parser.add_argument('--failfast', action='store_true')
 parser.add_argument('--reverse', action='store_true')
+parser.add_argument('--keepdb', action='store_true')
 
 arg_dict = vars(parser.parse_args())
 tests_to_run = arg_dict.pop('tests')
