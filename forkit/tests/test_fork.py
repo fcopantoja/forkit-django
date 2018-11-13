@@ -24,7 +24,14 @@ class ForkModelObjectTestCase(TestCase):
         fork2 = self.author.fork(commit=False)
 
         self.assertEqual(fork2.pk, None)
-        self.assertEqual(list(fork2._commits.related.keys()), ['posts'])
+
+        try:
+            # Python 3
+            assert_same_items = self.assertCountEqual
+        except AttributeError:
+            # Python 2 compat
+            assert_same_items = self.assertItemsEqual
+        assert_same_items(fork2._commits.related.keys(), ['posts'])
 
         fork2.commit()
         self.assertGreater(fork2.pk, fork.pk)
