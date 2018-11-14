@@ -19,4 +19,5 @@ setup(
         'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP',
     ],
+    url='https://github.com/Virtualstock/forkit-django/',
 )
