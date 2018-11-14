@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 
 setup(
-    version='0.10.0',
+    version='0.10.1',
     name='forkit-django',
     author='Virtualstock',
     author_email='dev.admin@virtualstock.com',

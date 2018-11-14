@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.10.1] 2018-11-14
+
+- Adds project's GitHub URL to package info so the code can be found from PyPI.
+- No functional changes.
+
 ## [0.10.0] 2018-11-14
 
 - **Library forked, and renamed to `forkit-django`.** The re-name will allow us
