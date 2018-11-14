@@ -13,7 +13,7 @@ setup(
     description='Utility functions for forking, resetting and diffing model objects',
     license='BSD',
     keywords='fork deepcopy model abstract diff',
-    packages=find_packages(),
+    packages=find_packages(exclude=['forkit.tests']),
     classifiers=[
         'Development Status :: 4 - Beta',
         'Framework :: Django',
