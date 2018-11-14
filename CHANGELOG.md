@@ -1,11 +1,13 @@
 # Changelog
 
-## [UNRELEASED]
+## [0.10.0] 2018-11-14
 
 - **Library forked, and renamed to `forkit-django`.** The re-name will allow us
   to release new versions to PyPI.
 - Add support for Django 1.8-2.1.
 - Drop support for Django <= 1.7.
+- Remove `__version__` `get_version` and `__version_info__` from `forkit`
+  module.
 
 ## [0.9.6] - 2011-10-11
 

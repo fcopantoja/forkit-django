@@ -1,12 +1,8 @@
 from setuptools import find_packages, setup
 
 
-BASE_PACKAGE = 'forkit'
-version = __import__(BASE_PACKAGE).get_version()
-
-
 setup(
-    version=version,
+    version='0.10.0',
     name='forkit-django',
     author='Virtualstock',
     author_email='dev.admin@virtualstock.com',
