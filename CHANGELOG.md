@@ -1,5 +1,9 @@
 # Changelog
 
+## [UNRELEASED]
+
+- Add trove classifiers to mark the library as supporting Python 3
+
 ## [0.10.1] 2018-11-14
 
 - Adds project's GitHub URL to package info so the code can be found from PyPI.
